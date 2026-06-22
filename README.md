@@ -171,13 +171,12 @@ LedgerSaaS/
 
 ### Backend
 
-```env
-DB_URL=jdbc:mysql://localhost:3306/ledgerdb
-DB_USERNAME=root
-DB_PASSWORD=yourpassword
+Create a `.env` file in the root directory (or inside the `backend/` folder) with the following parameters:
 
-JWT_SECRET=your_secret_key
-JWT_EXPIRATION=86400000
+```env
+DB_URL=jdbc:postgresql://ep-rapid-tooth-aiyniyxv.c-4.us-east-1.aws.neon.tech:5432/neondb?sslmode=require
+DB_USERNAME=neondb_owner
+DB_PASSWORD=npg_gYQHzpNfer28
 ```
 
 ### Frontend
