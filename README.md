@@ -128,7 +128,7 @@ MySQL Database
 
 ### Database
 
-- MySQL
+- PostgreSQL
 
 ### Tools
 
