@@ -102,7 +102,7 @@ REST APIs
 Spring Boot Backend
         │
         ▼
-MySQL Database
+PostgreSQL Database
 ```
 
 ---
