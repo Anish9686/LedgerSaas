@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolchains>
+    <toolchain>
+        <type>jdk</type>
+        <provides>
+            <version>25</version>
+            <vendor>oracle</vendor>
+        </provides>
+        <configuration>
+            <jdkHome>C:\Users\anish\.jdk\jdk-25</jdkHome>
+        </configuration>
+    </toolchain>
+</toolchains>
