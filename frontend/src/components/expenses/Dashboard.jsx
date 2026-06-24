@@ -652,14 +652,14 @@ const Dashboard = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsMobileSidebarOpen(false)}
-                            className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-xs md:hidden"
+                            className="fixed inset-0 z-[240] bg-slate-950/40 backdrop-blur-xs md:hidden"
                         />
                         <motion.aside 
                             initial={{ x: '-100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '-100%' }}
                             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                            className="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-[#FF5FA2]/10 p-5 flex flex-col justify-between md:hidden"
+                            className="fixed inset-y-0 left-0 z-[250] w-64 bg-white border-r border-[#FF5FA2]/10 p-5 flex flex-col justify-between md:hidden"
                         >
                             <div className="flex flex-col gap-6">
                                 <div className="flex items-center justify-between h-10">
@@ -806,7 +806,7 @@ const Dashboard = () => {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                             transition={{ duration: 0.15 }}
-                                            className="absolute right-0 mt-2 w-80 bg-white border border-[#FF5FA2]/15 rounded-[24px] shadow-lg z-[200] p-4 select-none overflow-hidden"
+                                            className="absolute left-0 md:left-auto md:right-0 mt-2 w-[calc(100vw-2.5rem)] sm:w-80 bg-white border border-[#FF5FA2]/15 rounded-[24px] shadow-lg z-[200] p-4 select-none overflow-hidden"
                                         >
                                             <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
                                                 <span className="text-xs font-bold text-slate-800">Notifications</span>

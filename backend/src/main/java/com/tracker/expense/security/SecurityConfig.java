@@ -55,7 +55,10 @@ public class SecurityConfig {
             List.of(
                 "http://localhost:5173",
                 "http://localhost:3000",
-                "https://*.onrender.com"
+                "https://*.onrender.com",
+                "https://*.vercel.app",
+                "https://*.netlify.app",
+                "*"
             )
         );
         configuration.setAllowedMethods(

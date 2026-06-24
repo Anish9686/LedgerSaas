@@ -16,11 +16,39 @@ import java.util.function.Function;
 @Component
 public class JwtUtils {
 
-    // Using a securely generated key for HMAC-SHA256
-    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // A base64-encoded 256-bit key used as a persistent fallback
+    private static final String DEFAULT_SECRET_BASE64 = "Ynkgc2VjdXJlIGtleSBmb3IgaG1hYy1zaGEyNTYgc2VjcmV0IGtleSBtdXN0IGJlIDI1NiBiaXRz";
+
+    private final Key key;
     
     // Token valid for 24 hours
     private final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; 
+
+    public JwtUtils(@org.springframework.beans.factory.annotation.Value("${jwt.secret:}") String jwtSecret) {
+        String secretToUse = (jwtSecret != null && !jwtSecret.trim().isEmpty()) ? jwtSecret : DEFAULT_SECRET_BASE64;
+        byte[] keyBytes;
+        try {
+            // Attempt to decode as base64 first
+            keyBytes = io.jsonwebtoken.io.Decoders.BASE64.decode(secretToUse);
+            if (keyBytes.length < 32) {
+                keyBytes = secretToUse.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            }
+        } catch (IllegalArgumentException e) {
+            // Fallback to raw bytes of the secret string
+            keyBytes = secretToUse.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        }
+        
+        // Ensure key length is at least 32 bytes for HS256
+        if (keyBytes.length < 32) {
+            try {
+                java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+                keyBytes = digest.digest(keyBytes);
+            } catch (java.security.NoSuchAlgorithmException ex) {
+                // Standard SHA-256 always available in JVM
+            }
+        }
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
