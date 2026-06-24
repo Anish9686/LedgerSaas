@@ -116,11 +116,24 @@ const Dashboard = () => {
     const loadData = async () => {
         try {
             const expData = await getExpenses();
-            setExpenses(expData);
+            if (Array.isArray(expData)) {
+                setExpenses(expData);
+            } else {
+                console.warn("Expected array for expenses, got:", expData);
+                setExpenses([]);
+            }
+            
             const sumData = await getMonthlySummary();
-            setSummary(sumData);
+            if (Array.isArray(sumData)) {
+                setSummary(sumData);
+            } else {
+                console.warn("Expected array for summary, got:", sumData);
+                setSummary([]);
+            }
         } catch (err) {
             console.error("Failed to load dashboard data", err);
+            setExpenses([]);
+            setSummary([]);
         }
     };
 
