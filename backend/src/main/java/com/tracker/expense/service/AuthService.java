@@ -51,13 +51,13 @@ public class AuthService {
     }
 
     public AuthResponse login(AuthRequest request) {
-        // Authenticate the user credentials
-        authenticationManager.authenticate(
+        // Authenticate the user credentials and get authentication object
+        org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
-        // Fetch UserDetails and generate Token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+        // Fetch UserDetails directly from authentication result (no second DB query)
+        final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         final String token = jwtUtils.generateToken(userDetails);
 
         return new AuthResponse(token, userDetails.getUsername());
