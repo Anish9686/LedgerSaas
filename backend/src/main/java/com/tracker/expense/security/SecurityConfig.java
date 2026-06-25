@@ -85,6 +85,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Encrypts passwords for Storage
+        return new BCryptPasswordEncoder(4); // Use strength 4 to optimize CPU cycles on free-tier hosting
     }
 }
